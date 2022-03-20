@@ -28,7 +28,7 @@ const diccionarioOpciones = {
   Suscripciones: IconoSuscripciones,
 };
 
-const Gasto = ({ gasto }) => {
+const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
   const [option, setOption] = useState("");
   const { categoria, nombre, cantidad, id, fecha } = gasto;
 
@@ -37,13 +37,12 @@ const Gasto = ({ gasto }) => {
     option = options.find(
       (option) => Number(option.value) === Number(categoria)
     );
-    console.log(option);
     setOption(option.label);
   }, []);
 
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction onClick={() => console.info("swipe action triggered")}>
+      <SwipeAction onClick={() => setGastoEditar(gasto)}>
         Editar
       </SwipeAction>
     </LeadingActions>
@@ -52,8 +51,8 @@ const Gasto = ({ gasto }) => {
   const trailingActions = () => (
     <TrailingActions>
       <SwipeAction
-        // destructive={true}
-        onClick={() => console.info('swipe action triggered')}
+        destructive={true}
+        onClick={() => eliminarGasto(gasto.id)}
       >
         Eliminar
       </SwipeAction>
